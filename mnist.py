@@ -98,6 +98,8 @@ def main():
                         help='how many batches to wait before logging training status')
     parser.add_argument('--save-model', action='store_true', default=False,
                         help='For Saving the current Model')
+    parser.add_argument('--save-dir', default=os.path.join(current_file_path(), 'logs'), metavar='L',
+                        help='directory where trained model are stored')
     parser.add_argument('--dir', default=os.path.join(current_file_path(), 'logs'), metavar='L',
                         help='directory where summary logs are stored')
     parser.add_argument('--data', default=current_file_path(), metavar='D',
@@ -151,7 +153,7 @@ def main():
         test(args, model, device, test_loader, writer, epoch)
 
     if (args.save_model):
-        torch.save(model.state_dict(),"mnist_cnn.pt")
+        torch.save(model.state_dict(), os.path.join(args.save_dir,"mnist_cnn.pt"))
 
 if __name__ == '__main__':
     main()
